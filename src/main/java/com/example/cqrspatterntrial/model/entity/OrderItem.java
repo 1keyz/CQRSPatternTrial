@@ -13,13 +13,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cqrs_order_item")
+@Table(name = "cqrs_order1_tem")
 public class OrderItem {
     @Id
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "order")
+    @JoinColumn(name = "order1")
     private Order order;
 
     @OneToOne(mappedBy = "orderItem")

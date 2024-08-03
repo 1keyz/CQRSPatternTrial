@@ -18,8 +18,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cqrs_order")
-public class Order extends AbstractModule {
+@Table(name = "cqrs_order1")
+public class Order  {
     @Id
     private UUID id;
 
@@ -28,8 +28,4 @@ public class Order extends AbstractModule {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
-    @Override
-    protected void configure() {
-
-    }
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class CommandBusImpl implements ICommandBus {
-    private Set<CommandHandler> commandHandlers;
+    private final Set<CommandHandler> commandHandlers;
     @Override
     public <C extends ICommand<R>, R> R execute(C command) {
         CommandHandler<C, R> handler = (CommandHandler<C, R>) findCommandHandler(command);

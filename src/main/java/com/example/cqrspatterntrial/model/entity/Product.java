@@ -10,13 +10,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cqrs_product")
+@Table(name = "cqrsProduct")
 @Builder
 public class Product {
     @Id
     private UUID id;
     private String name;
     private double price;
+
     @OneToOne
+    @JoinColumn(name = "order1_item")
     private OrderItem orderItem;
 }
