@@ -1,6 +1,8 @@
 package com.example.cqrspatterntrial.controller;
 
 import com.example.cqrspatterntrial.command.CommandHandler;
+import com.example.cqrspatterntrial.command.ICommandBus;
+import com.example.cqrspatterntrial.command.ProductCommand;
 import com.example.cqrspatterntrial.command.ProductCommandHandler;
 import com.example.cqrspatterntrial.model.dto.CreateProductCommand;
 import com.example.cqrspatterntrial.model.dto.GetProductByIdQuery;
@@ -20,10 +22,11 @@ import java.util.stream.Stream;
 public class ProductController {
     private final ProductCommandHandler commandHandler;
     private final ProductQueryHandler queryHandler;
+    private final ICommandBus iCommandBus;
 
     @PostMapping
-    public void command(@RequestBody CreateProductCommand command) {
-        commandHandler.handle(command);
+    public void command(@RequestBody ProductCommand command) {
+        iCommandBus.execute(command);
     }
 
     @GetMapping

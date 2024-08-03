@@ -11,16 +11,12 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class CommandBusImpl implements ICommandBus {
     private Set<CommandHandler> commandHandlers;
-
-    @Override
-    public <C> CommandHandler<C, Void> execute(C command) {
-        return null;
-    }
-
     @Override
     public <C extends ICommand<R>, R> R execute(C command) {
-        return null;
+        CommandHandler<C, R> handler = (CommandHandler<C, R>) findCommandHandler(command);
+        return handler.handle(command);
     }
+
 
     private <C> CommandHandler<C, ?> findCommandHandler(C command) {
         Class<?> commandClazz = command.getClass();
