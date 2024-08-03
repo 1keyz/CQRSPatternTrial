@@ -1,28 +1,26 @@
 package com.example.cqrspatterntrial.model.entity;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "cqrs_product")
-public class Product {
+@Document(indexName = "orders")
+public class OrderES {
     @Id
     private UUID id;
-    private String name;
-    private double price;
 
-    @OneToOne
-    private OrderItem orderItem;
+    private String userName;
+
+    private List<OrderItem> orderItems;
 }

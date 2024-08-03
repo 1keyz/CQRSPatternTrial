@@ -6,5 +6,5 @@ import java.util.UUID;
 
 @Getter
 public class GetProductByIdQuery {
-    private Integer id;
+    private String id;
 }

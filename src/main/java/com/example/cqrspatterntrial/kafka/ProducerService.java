@@ -1,8 +1,8 @@
-package com.example.cqrspatterntrial.service;
+package com.example.cqrspatterntrial.kafka;
 
 import com.example.cqrspatterntrial.model.entity.Product;
+import com.example.cqrspatterntrial.model.entity.ProductES;
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.kafka.core.KafkaTemplate;

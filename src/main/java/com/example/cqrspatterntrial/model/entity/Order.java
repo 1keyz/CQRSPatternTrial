@@ -2,13 +2,14 @@ package com.example.cqrspatterntrial.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,13 +17,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cqrs_product")
-public class Product {
+@Table(name = "cqrs_order")
+public class Order {
     @Id
     private UUID id;
-    private String name;
-    private double price;
 
-    @OneToOne
-    private OrderItem orderItem;
+    private String userName;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 }
