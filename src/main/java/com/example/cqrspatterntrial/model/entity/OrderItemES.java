@@ -24,4 +24,6 @@ public class OrderItemES {
     private Order order;
 
     private Product product;
+
+    private double quantity;
 }

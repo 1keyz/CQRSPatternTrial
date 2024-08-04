@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.kafka.core.KafkaTemplate;
 @Component
 @RequiredArgsConstructor
-public class ProducerService {
+public class ProducerService <T> {
     @Value("${kafka.topic}")
     private String topic;
 
     private final KafkaTemplate<String,Object> template;
 
-    public void producer(Product product) {
-        template.send(topic,product);
+    public void producer(T claz) {
+        template.send(topic,claz);
     }
 }

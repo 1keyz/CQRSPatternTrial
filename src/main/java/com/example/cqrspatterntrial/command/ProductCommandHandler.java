@@ -1,6 +1,6 @@
 package com.example.cqrspatterntrial.command;
 
-import com.example.cqrspatterntrial.model.dto.CreateProductCommand;
+
 import com.example.cqrspatterntrial.model.entity.Product;
 import com.example.cqrspatterntrial.repository.ProductRepository;
 import com.example.cqrspatterntrial.kafka.ProducerService;
@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Builder
 public class ProductCommandHandler implements CommandHandler<ProductCommand,Void>{
     private final ProductRepository repository;
     private final ProducerService producerService;

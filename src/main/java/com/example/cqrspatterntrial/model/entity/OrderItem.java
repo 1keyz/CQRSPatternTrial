@@ -18,6 +18,8 @@ public class OrderItem {
     @Id
     private UUID id;
 
+    private double quantity;
+
     @ManyToOne
     @JoinColumn(name = "order1")
     private Order order;

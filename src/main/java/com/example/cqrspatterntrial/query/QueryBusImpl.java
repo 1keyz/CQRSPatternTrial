@@ -1,5 +1,6 @@
-package com.example.cqrspatterntrial.command;
+package com.example.cqrspatterntrial.query;
 
+import com.example.cqrspatterntrial.command.CommandHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,23 +10,23 @@ import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
-public class CommandBusImpl implements ICommandBus {
-    private final Set<CommandHandler> commandHandlers;
+public class QueryBusImpl implements IQueryBus{
+    private final Set<QueryHandler> queryHandlers;
+
+
     @Override
-    public <C extends ICommand<R>, R> R execute(C command) {
-        CommandHandler<C, R> handler = (CommandHandler<C, R>) findCommandHandler(command);
-        return handler.handle(command);
+    public <Q extends IQuery<R>, R> R execute(Q query) {
+        QueryHandler<Q,R> queryHandler = (QueryHandler<Q, R>) findCommandHandler(query);
+        return (R) queryHandler.handle(query);
     }
-
-
-    private <C> CommandHandler<C, ?> findCommandHandler(C command) {
-        Class<?> commandClazz = command.getClass();
-        return commandHandlers.stream()
-                .filter(handler -> canHandleCommand(handler.getClass(), commandClazz))
+    private <T> QueryHandler<T, ?> findCommandHandler(T query) {
+        Class<?> commandClazz = query.getClass();
+        return queryHandlers.stream()
+                .filter(handler -> canHandleQuery(handler.getClass(), commandClazz))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Do not handle " + commandClazz.getName()));
     }
-    private boolean canHandleCommand(Class<?> handlerClazz, Class<?> commandClazz) {
+    private boolean canHandleQuery(Class<?> handlerClazz, Class<?> commandClazz) {
         Type[] genericInterfaces = handlerClazz.getGenericInterfaces();
         ParameterizedType handlerIntefaceType = null;
 

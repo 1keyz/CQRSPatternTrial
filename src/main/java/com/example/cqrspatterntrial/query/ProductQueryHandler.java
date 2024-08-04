@@ -1,7 +1,5 @@
 package com.example.cqrspatterntrial.query;
 
-import com.example.cqrspatterntrial.model.dto.GetProductByIdQuery;
-import com.example.cqrspatterntrial.model.entity.Product;
 import com.example.cqrspatterntrial.model.entity.ProductES;
 import com.example.cqrspatterntrial.repository.ProductESRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +10,12 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
-public class ProductQueryHandler implements QueryHandler<GetProductByIdQuery, ProductES>{
+public class ProductQueryHandler implements QueryHandler<ProductQuery, ProductES>{
     private final ProductESRepository esRepository;
 
     @Override
-    public Stream<ProductES> handle(GetProductByIdQuery query) {
-        Stream<ProductES> productES =  esRepository.getByName(query.getId());
+    public Stream<ProductES> handle(ProductQuery query) {
+        Stream<ProductES> productES = esRepository.findById(query.getId()).stream();
         return productES;
     }
 
@@ -25,5 +23,10 @@ public class ProductQueryHandler implements QueryHandler<GetProductByIdQuery, Pr
     public Iterable<ProductES> getall() {
         Iterable<ProductES> list =  esRepository.findAll();
         return  list;
+    }
+
+    @Override
+    public Stream<ProductES> getByName(String name) {
+        return esRepository.getByName(name);
     }
 }

@@ -23,7 +23,7 @@ public class Order  {
     @Id
     private UUID id;
 
-    private String userName;
+    private String customerName;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
