@@ -13,9 +13,10 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cqrs_order1_tem")
+@Table(name = "cqrs_order_item")
 public class OrderItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private double quantity;
@@ -24,6 +25,7 @@ public class OrderItem {
     @JoinColumn(name = "order1")
     private Order order;
 
-    @OneToOne(mappedBy = "orderItem")
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 }

@@ -1,7 +1,6 @@
 package com.example.cqrspatterntrial.repository;
 
 
-import com.example.cqrspatterntrial.model.entity.Product;
 import com.example.cqrspatterntrial.model.entity.ProductES;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
@@ -15,5 +14,5 @@ import java.util.stream.Stream;
 public interface ProductESRepository extends ElasticsearchRepository<ProductES, UUID> {
 
     @Query("{\"match\": {\"name\": \"?0\"}}")
-    Stream<ProductES> getByName(String name);
+    List<ProductES> getByName(String name);
 }

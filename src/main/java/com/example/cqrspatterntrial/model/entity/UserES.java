@@ -9,17 +9,14 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.List;
 import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "orders")
-public class OrderES {
+@Document(indexName = "users")
+public class UserES {
     @Id
     private UUID id;
-
-    private User user;
-
-    private List<OrderItem> orderItems;
+    private String name;
+    private List<Order> orderList;
 }

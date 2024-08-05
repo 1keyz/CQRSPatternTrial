@@ -4,14 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemCommand implements ICommand<Void>{
+public class OrderCommand implements ICommand<Void>{
     private UUID id;
-    private UUID productId;
-    private UUID orderId;
-    private double quantity;
+    private UUID userId;
+    private List<OrderItemCommand> orderItems;
 }

@@ -1,16 +1,25 @@
 package com.example.cqrspatterntrial.command;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Set;
 
+import java.util.Map;
+
 @Component
-@RequiredArgsConstructor
 public class CommandBusImpl implements ICommandBus {
-    private final Set<CommandHandler> commandHandlers;
+    private final Map<Class<? extends ICommand>,CommandHandler<ICommand, ?>> commandHandlers = new HashMap<>();
+
+    public CommandBusImpl(Set<CommandHandler> commandHandlerBeans) {
+        commandHandlerBeans.stream().forEach(commandHandler -> {
+            Class<? extends ICommand> commandClass = getCommandClass(commandHandler.getClass());
+            commandHandlers.put(commandClass, commandHandler);
+        });
+    }
+
     @Override
     public <C extends ICommand<R>, R> R execute(C command) {
         CommandHandler<C, R> handler = (CommandHandler<C, R>) findCommandHandler(command);
@@ -19,13 +28,10 @@ public class CommandBusImpl implements ICommandBus {
 
 
     private <C> CommandHandler<C, ?> findCommandHandler(C command) {
-        Class<?> commandClazz = command.getClass();
-        return commandHandlers.stream()
-                .filter(handler -> canHandleCommand(handler.getClass(), commandClazz))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Do not handle " + commandClazz.getName()));
+        return (CommandHandler<C, ?>) commandHandlers.get(command.getClass());
     }
-    private boolean canHandleCommand(Class<?> handlerClazz, Class<?> commandClazz) {
+
+    private Class<? extends ICommand> getCommandClass(Class<?> handlerClazz) {
         Type[] genericInterfaces = handlerClazz.getGenericInterfaces();
         ParameterizedType handlerIntefaceType = null;
 
@@ -36,7 +42,8 @@ public class CommandBusImpl implements ICommandBus {
             }
         }
 
-        Class<?> acceptableParameterClass = (Class<?>) handlerIntefaceType.getActualTypeArguments()[0];
-        return acceptableParameterClass.equals(commandClazz);
+        Class<? extends ICommand> acceptableParameterClass = (Class<? extends ICommand>) handlerIntefaceType.getActualTypeArguments()[0];
+        return acceptableParameterClass;
     }
+
 }

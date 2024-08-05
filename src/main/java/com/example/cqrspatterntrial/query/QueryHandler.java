@@ -1,16 +1,14 @@
 package com.example.cqrspatterntrial.query;
 
-import com.example.cqrspatterntrial.model.entity.Product;
-import com.example.cqrspatterntrial.model.entity.ProductES;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface QueryHandler <Q , R> {
 
-    Stream<R> handle(Q query);
+    Optional<R> handle(Q query);
 
-    Iterable<R> getall();
+    Iterable<R> getAll();
 
-    Stream<R> getByName(String name);
+    List<R> getByName(String name);
 }

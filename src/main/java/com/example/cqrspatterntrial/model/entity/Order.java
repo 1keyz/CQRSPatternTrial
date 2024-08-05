@@ -1,14 +1,10 @@
 package com.example.cqrspatterntrial.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.elasticsearch.common.inject.AbstractModule;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,14 +14,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cqrs_order1")
+@Table(name = "cqrs_order")
 public class Order  {
     @Id
     private UUID id;
 
-    private String customerName;
-
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

@@ -5,13 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemCommand implements ICommand<Void>{
+public class UserCommand implements ICommand<Void>{
     private UUID id;
-    private UUID productId;
-    private UUID orderId;
-    private double quantity;
+    private String name;
 }

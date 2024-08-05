@@ -18,7 +18,4 @@ public class Product {
     private String name;
     private double price;
 
-    @OneToOne
-    @JoinColumn(name = "order1_item")
-    private OrderItem orderItem;
 }
